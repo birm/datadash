@@ -1,0 +1,14 @@
+{
+  "name": "csvddengine",
+  "version": "1.0.0",
+  "description": "csv engine for dd",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "birm",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
