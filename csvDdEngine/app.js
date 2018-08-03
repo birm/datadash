@@ -24,31 +24,60 @@ class csvData{
   }
 }
 
+function filterData(data, rules){
+  return data.filter(y=>{
+    for (rule in rules){
+      let broken = false
+      let opr = Object.keys(rules[rule])[0];
+      if (opr == "match"){
+        broken = y[rule] != rules[rule][opr] 
+      } else if (opr == "regex"){
+        let re = new RegExp(rules[rule][opr])
+        broken = !re.test(y[rule])
+      } else if (opr == "less"){
+        broken = y[rule] >= rules[rule][opr]
+      } else if (opr == "greater"){
+        broken = y[rule] <= rules[rule][opr]
+      }
+      if (broken){
+        return false
+      }
+      
+    }
+    // all rules met
+    return true
+  })
+}
+
 demolist = {};
 
 const demoData = new csvData(demolist);
 
-app.get("/data/datasets", (req, res) => res.send(Object.keys(demodata.filelist)))
+app.get("/data/datasets", (req, res) => res.send(Object.keys(demoData.filelist)))
 
-app.get("/data/summary", (req, res) => res.send(Object.keys(demodata.getData(req.query.dataset))))
+app.get("/data/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset))))
 
 
-app.get("/data/tabular", x=>x)
+app.get("/data/tabular", (req, res) =>{
+        let data = demoData.getData(req.query.dataset);
+        res.send(filterData(data.slice(req.query.start,req.query.len), req.query.filter))
+        })
+
+app.get("/data/counteach", (req, res) =>{
+        let data = demoData.getData(req.query.dataset);
+        
+        })
 req.query.dataset
 req.query.filter
-req.query.cols
-req.query.start
-req.query.len
+req.query.col
 
-app.get("/data/counteach", x=>x)
+app.get("/data/stats", (req, res) =>{
+        let data = demoData.getData(req.query.dataset);
+        
+        })
 req.query.dataset
 req.query.filter
-req.query.cols
-
-app.get("/data/stats", x=>x)
-req.query.dataset
-req.query.filter
-req.query.cols
+req.query.col
 
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
