@@ -1,4 +1,5 @@
 const express = require('express')
+const csv = require('csvtojson');
 const app = express()
 
 class csvData{
@@ -7,15 +8,17 @@ class csvData{
     this._datasets = {}
   }
 
-  async getData(key, reload=false){
+  getData(key, reload=false){
     let data = this._datasets[key]
     if (!reload && data){
-      return data
+        return data
     } else {
       let fn = this.filelist[key]
       if (fn){
-        this._datasets[key]=await csv().fromFile(csvFilePath)
-        return this._datasets[key]
+        csv().fromFile(this.filelist[key]).then(x=>{
+            this._datasets[key]=x
+            return x
+        })
       }
       else {
         return -1
@@ -25,12 +28,15 @@ class csvData{
 }
 
 function filterData(data, rules){
+  rules = JSON.parse(rules)
   return data.filter(y=>{
     for (rule in rules){
+      console.log(Object.keys(rules[rule])[0])
       let broken = false
       let opr = Object.keys(rules[rule])[0];
       if (opr == "match"){
-        broken = y[rule] != rules[rule][opr] 
+        console.log(y[rule])
+        broken = y[rule] != rules[rule][opr]
       } else if (opr == "regex"){
         let re = new RegExp(rules[rule][opr])
         broken = !re.test(y[rule])
@@ -42,17 +48,17 @@ function filterData(data, rules){
       if (broken){
         return false
       }
-      
+
     }
     // all rules met
     return true
   })
 }
 
-demolist = {};
+demolist = {fruit:"data.csv"};
 
 const demoData = new csvData(demolist);
-
+console.log(demoData.getData('fruit'))
 app.get("/data/datasets", (req, res) => res.send(Object.keys(demoData.filelist)))
 
 app.get("/data/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset))))
