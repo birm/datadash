@@ -60,24 +60,35 @@ app.get("/data/summary", (req, res) => res.send(Object.keys(demoData.getData(req
 
 app.get("/data/tabular", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
-        res.send(filterData(data.slice(req.query.start,req.query.len), req.query.filter))
+        res.send(filterData(data, req.query.filter).slice(req.query.start,req.query.len))
         })
 
 app.get("/data/counteach", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
-        
+        data = filterData(data, req.query.filter)
+        let counts = {}
+        for (record in data){
+          let val = record[req.query.col]
+          if(val in counts){
+            counts[val] +=1
+          } else {
+            counts[val] =1
+          }
+        }
+        res.send(counts)
         })
-req.query.dataset
-req.query.filter
-req.query.col
 
 app.get("/data/stats", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
-        
+        data = filterData(data, req.query.filter).map(x=>x[req.query.col])
+        let stats = {}
+        stats.max = Math.max(data)
+        stats.min = Math.min(data)
+        stats.count = data.length
+        let s = new Set(data)
+        stats.distinct = s.size
+        res.send(stats)
         })
-req.query.dataset
-req.query.filter
-req.query.col
 
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
