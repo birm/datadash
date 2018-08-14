@@ -28,22 +28,27 @@ class csvData{
 }
 
 function filterData(data, rules){
-  rules = JSON.parse(rules)
   return data.filter(y=>{
     for (rule in rules){
-      console.log(Object.keys(rules[rule])[0])
       let broken = false
-      let opr = Object.keys(rules[rule])[0];
-      if (opr == "match"){
+      let oprs = Object.keys(rules[rule]);
+      console.log(oprs)
+      if (oprs.includes("match")){
         console.log(y[rule])
-        broken = y[rule] != rules[rule][opr]
-      } else if (opr == "regex"){
-        let re = new RegExp(rules[rule][opr])
-        broken = !re.test(y[rule])
-      } else if (opr == "less"){
-        broken = y[rule] >= rules[rule][opr]
-      } else if (opr == "greater"){
-        broken = y[rule] <= rules[rule][opr]
+        broken = broken || y[rule] != rules[rule]["match"]
+      }
+      if (oprs.includes("regex")){
+        console.log(y[rule])
+        let re = new RegExp(rules[rule]["regex"])
+        broken = broken || !re.test(y[rule])
+      }
+      if (oprs.includes("less")){
+        console.log(y[rule])
+        broken = broken || y[rule] >= rules[rule]["less"]
+      }
+      if (oprs.includes("greater")){
+        console.log(y[rule])
+        broken = broken || y[rule] <= rules[rule]["greater"]
       }
       if (broken){
         return false
@@ -66,7 +71,7 @@ app.get("/data/summary", (req, res) => res.send(Object.keys(demoData.getData(req
 
 app.get("/data/tabular", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
-        res.send(filterData(data, req.query.filter).slice(req.query.start,req.query.len))
+        res.send(filterData(data, JSON.parse(req.query.filter)).slice(req.query.start,req.query.len))
         })
 
 app.get("/data/counteach", (req, res) =>{
