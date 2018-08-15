@@ -64,17 +64,17 @@ demolist = {fruit:"data.csv"};
 
 const demoData = new csvData(demolist);
 console.log(demoData.getData('fruit'))
-app.get("/data/datasets", (req, res) => res.send(Object.keys(demoData.filelist)))
+app.get("/v1/datasets", (req, res) => res.send(Object.keys(demoData.filelist)))
 
-app.get("/data/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset))))
+app.get("/v1/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset))))
 
 
-app.get("/data/tabular", (req, res) =>{
+app.get("/v1/tabular", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
         res.send(filterData(data, JSON.parse(req.query.filter)).slice(req.query.start,req.query.len))
         })
 
-app.get("/data/counteach", (req, res) =>{
+app.get("/v1/counteach", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
         data = filterData(data, req.query.filter)
         let counts = {}
@@ -89,7 +89,7 @@ app.get("/data/counteach", (req, res) =>{
         res.send(counts)
         })
 
-app.get("/data/stats", (req, res) =>{
+app.get("/v1/stats", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
         data = filterData(data, req.query.filter).map(x=>x[req.query.col])
         let stats = {}
