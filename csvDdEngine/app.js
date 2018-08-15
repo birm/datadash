@@ -66,7 +66,7 @@ const demoData = new csvData(demolist);
 console.log(demoData.getData('fruit'))
 app.get("/v1/datasets", (req, res) => res.send(Object.keys(demoData.filelist)))
 
-app.get("/v1/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset))))
+app.get("/v1/summary", (req, res) => res.send(Object.keys(demoData.getData(req.query.dataset)[0])))
 
 
 app.get("/v1/tabular", (req, res) =>{
