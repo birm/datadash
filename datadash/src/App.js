@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+d3Selection = require('d3-selection');
+
 class App extends Component {
   render() {
     return (
