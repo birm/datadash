@@ -41,7 +41,7 @@ List of strings, each being a column in the dataset.
 ### /v1/tabular
 *Returns data in tabular form matching the filter*
 
-Some operations require specifying a column; this lets users see which columns are avaliable for a dataset.
+Get json data for populating tables, etc.
 #### Params
 - dataset -- the selected dataset
 - start -- the number of record to start on (beware numbers will change with change in filter)
@@ -50,6 +50,17 @@ Some operations require specifying a column; this lets users see which columns a
 #### Returns
 List of objects, each being a record.
 
+### /v1/matrix
+*Returns data in col major matrix form matching the filter*
+
+Get data as an array of arrays, column major, in the same order given.
+#### Params
+- dataset -- the selected dataset
+- cols -- which columns, in order, to get
+- filter -- The active filter
+- missing -- The value to fill missing data with
+#### Returns
+List of lists, each being a column.
 
 ### /v1/counteach
 *Returns how many records match the filter for each value of a column*
