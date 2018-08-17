@@ -71,7 +71,11 @@ app.get("/v1/summary", (req, res) => res.send(Object.keys(demoData.getData(req.q
 
 app.get("/v1/tabular", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
-        res.send(filterData(data, JSON.parse(req.query.filter)).slice(req.query.start,req.query.len))
+        let d = filterData(data, JSON.parse(req.query.filter))
+        if (req.query.len){
+          res.send(d.slice(req.query.start || 0 ,req.query.len))
+        } else
+          res.send(d)
         })
 
 app.get("/v1/matrix", (req, res) =>{

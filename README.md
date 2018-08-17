@@ -22,7 +22,7 @@ The following methods are part of the V1 Specification. Implementations may have
 ### /v1/datasets
 *Returns a list of datasets avaliable*
 
-Engines can support more than one dataset. As a result, calls to any data-fetching method should specify which dataset it uses. This call allows a user to see the options avaliable. 
+Engines can support more than one dataset. As a result, calls to any data-fetching method should specify which dataset it uses. This call allows a user to see the options avaliable.
 #### Params
 *None*
 #### Returns
@@ -31,7 +31,7 @@ List of strings, each being a dataset.
 ### /v1/summary
 *Returns a list of columns (keys) in the dataset*
 
-Some operations require specifying a column; this lets users see which columns are avaliable for a dataset.
+Some operations require specifying a column; this lets users see which columns are usable for a dataset.
 #### Params
 - dataset -- the selected dataset
 #### Returns
@@ -44,8 +44,8 @@ List of strings, each being a column in the dataset.
 Get json data for populating tables, etc.
 #### Params
 - dataset -- the selected dataset
-- start -- the number of record to start on (beware numbers will change with change in filter)
-- len -- the number of records to return
+- start -- (optional) the number of record to start on (beware numbers will change with change in filter), default 0
+- len -- (optional) the number of records to return, default all records; if not specified, start is ignored as well
 - filter -- The active filter
 #### Returns
 List of objects, each being a record.
@@ -71,4 +71,3 @@ List of lists, each being a column.
 - filter -- The active filter
 #### Returns
 An object: keys are values of the specified column, values are counts matching the filter.
-
