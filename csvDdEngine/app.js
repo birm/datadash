@@ -74,6 +74,22 @@ app.get("/v1/tabular", (req, res) =>{
         res.send(filterData(data, JSON.parse(req.query.filter)).slice(req.query.start,req.query.len))
         })
 
+app.get("/v1/matrix", (req, res) =>{
+        let data = demoData.getData(req.query.dataset);
+        let a = filterData(data, JSON.parse(req.query.filter))
+        let cols = JSON.parse(req.query.cols)
+        let outdata = []
+        for (col in cols){
+          let t = []
+          for (rec in a){
+            console.log(col, rec, a[rec][cols[col]])
+            t.push(a[rec][cols[col]])
+          }
+          d.push(t)
+        }
+        res.send(d)
+        })
+
 app.get("/v1/counteach", (req, res) =>{
         let data = demoData.getData(req.query.dataset);
         data = filterData(data, req.query.filter)
