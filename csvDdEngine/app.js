@@ -82,7 +82,7 @@ app.get("/v1/matrix", (req, res) =>{
         for (col in cols){
           let t = []
           for (rec in a){
-            console.log(col, rec, a[rec][cols[col]])
+            console.log(col, rec, a[rec][cols[col]] || req.query.missing)
             t.push(a[rec][cols[col]])
           }
           d.push(t)
