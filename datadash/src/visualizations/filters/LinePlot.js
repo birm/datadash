@@ -1,18 +1,17 @@
-class BarChart extends React.Component{
+class LinePlot extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
-    let bins = props.bins || 5
-    let cols = props.col
-    this.state = {id: id, bins:bins, col:col}
+    let cols = props.cols
+    this.state = {id: id, cols:cols}
   }
 
   componentDidMount() {
-    let chart = barChart()
+    let chart = lineChart()
     let container = d3Selection.select(this.props.id+"-chart")
     container.html(chart.loadingState())
-    // TODO need a way to trabslate in store
-    store.matrix(this.state.col).then((data)=>{
+    // TODO need a way to trabskate in store
+    store.matrix(this.state.cols).then((data)=>{
       // translate
       container.load(data).call(chart)
     }, (error)=>{
@@ -22,7 +21,7 @@ class BarChart extends React.Component{
 
   render(){
     return(
-      <div className="barchart graph filter" id={this.props.id+"-chart"}>
+      <div className="lineplot graph filter" id={this.props.id}>
       </div>
     )
   }

@@ -30,8 +30,12 @@ class Store {
         let query = {}
         query.dataset = this.dataset
         query.filter = this.filterState
-        query.len = len
-        query.start = start
+        if(len){
+          query.len = len
+        }
+        if (start){
+          query.start = start
+        }
         let url = this.urlBase + "/v1/tabular" + objToParamStr(query)
         return fetch(url, {
             credentials: "same-origin",
