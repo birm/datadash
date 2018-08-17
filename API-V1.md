@@ -47,6 +47,18 @@ Some operations require specifying a column; this lets users see which columns a
 #### Returns
 List of objects, each being a record.
 
+### /v1/matrix
+*Returns data in col major matrix form matching the filter*
+
+Get data as an array of arrays, column major, in the same order given.
+#### Params
+- dataset -- the selected dataset
+- cols -- which columns, in order, to get
+- filter -- The active filter
+- missing -- The value to fill missing data with
+#### Returns
+List of lists, each being a column.
+
 
 ### /v1/counteach
 *Returns how many records match the filter for each value of a column*
