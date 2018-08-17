@@ -1,4 +1,4 @@
-class BarChart extends React.Component{
+class Histogram extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
@@ -7,7 +7,7 @@ class BarChart extends React.Component{
 
   render(){
     return(
-      <div className="barchart graph" id={this.props.id}>
+      <div className="histogram graph filter" id={this.props.id}>
       </div>
     )
   }

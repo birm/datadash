@@ -1,4 +1,4 @@
-class Histogram extends React.Component{
+class ScatterPlot extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
@@ -7,7 +7,7 @@ class Histogram extends React.Component{
 
   render(){
     return(
-      <div className="histogram graph" id={this.props.id}>
+      <div className="scatterplot graph filter" id={this.props.id}>
       </div>
     )
   }

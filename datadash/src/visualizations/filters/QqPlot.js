@@ -1,4 +1,4 @@
-class TimeLine extends React.Component{
+class QqPlot extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
@@ -7,7 +7,7 @@ class TimeLine extends React.Component{
 
   render(){
     return(
-      <div className="timeline graph" id={this.props.id}>
+      <div className="qq graph filter" id={this.props.id}>
       </div>
     )
   }

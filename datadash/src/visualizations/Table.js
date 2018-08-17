@@ -1,4 +1,4 @@
-class QqPlot extends React.Component{
+class Table extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
@@ -7,7 +7,7 @@ class QqPlot extends React.Component{
 
   render(){
     return(
-      <div className="qq graph" id={this.props.id}>
+      <div className="table graph" id={this.props.id}>
       </div>
     )
   }

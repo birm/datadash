@@ -1,4 +1,4 @@
-class ScatterPlot extends React.Component{
+class TimeLine extends React.Component{
   constructor(props){
     super(props)
     let id = props.id
@@ -7,7 +7,7 @@ class ScatterPlot extends React.Component{
 
   render(){
     return(
-      <div className="scatterplot graph" id={this.props.id}>
+      <div className="timeline graph filter" id={this.props.id}>
       </div>
     )
   }

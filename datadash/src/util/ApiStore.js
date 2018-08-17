@@ -38,6 +38,18 @@ class Store {
             mode: "cors"
         }).then((x) => x.json())
     }
+    matrix(cols, missing) {
+        let query = {}
+        query.dataset = this.dataset
+        query.filter = this.filterState
+        query.cols = cols
+        query.missing = missing
+        let url = this.urlBase + "/v1/matrix" + objToParamStr(query)
+        return fetch(url, {
+            credentials: "same-origin",
+            mode: "cors"
+        }).then((x) => x.json())
+    }
     countEach(col) {
         let query = {}
         query.dataset = this.dataset
