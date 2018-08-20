@@ -21,7 +21,8 @@ class Store {
     summary() {
         let query = {}
         query.dataset = this.dataset
-        let url = this.urlBase + "/v1/summary" + objToParamStr(query)
+        query.filter = this.filterState
+        let url = this.urlBase + "/v1/summary?" + objToParamStr(query)
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
@@ -37,7 +38,8 @@ class Store {
         if (start){
           query.start = start
         }
-        let url = this.urlBase + "/v1/tabular" + objToParamStr(query)
+        let url = this.urlBase + "/v1/tabular?" + objToParamStr(query)
+        return new Promise((res,rej)=>res(url))
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
@@ -46,10 +48,13 @@ class Store {
     matrix(cols, missing) {
         let query = {}
         query.dataset = this.dataset
-        query.filter = this.filterState
-        query.cols = cols
-        query.missing = missing
-        let url = this.urlBase + "/v1/matrix" + objToParamStr(query)
+        query.filter = JSON.stringify(this.filterState)
+        query.cols = JSON.stringify(cols)
+        if (missing){
+          query.missing = missing
+        }
+        let url = this.urlBase + "/v1/matrix?" + objToParamStr(query)
+        //return new Promise((res,rej)=>res(url))
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
@@ -60,7 +65,7 @@ class Store {
         query.dataset = this.dataset
         query.filter = this.filterState
         query.col = col
-        let url = this.urlBase + "/v1/counteach" + objToParamStr(query)
+        let url = this.urlBase + "/v1/counteach?" + objToParamStr(query)
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"

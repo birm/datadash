@@ -2,6 +2,13 @@ const express = require('express')
 const csv = require('csvtojson');
 const app = express()
 
+// CORS
+app.use((req,res,next)=>{
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next()
+})
+
 class csvData{
   constructor(filelist){
     this.filelist = filelist
@@ -102,6 +109,5 @@ app.get("/v1/counteach", (req, res) =>{
         }
         res.send(counts)
         })
-
 
 app.listen(3333, () => console.log('CSV DataDash Engine at Port 3333'))

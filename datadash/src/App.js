@@ -4,8 +4,8 @@ import './App.css';
 import Store from './util/ApiStore'
 import TextPlot from './visualizations/filters/TextPlot'
 
-const urlBase="localhost:3333"
-const dataset="test"
+const urlBase="http://localhost:3333"
+const dataset="fruit"
 const store = new Store(urlBase, dataset)
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">DataDash</h1>
         </header>
-        <TextPlot cols={[]} id={"alpha-1"} store={store}></TextPlot>
+        <TextPlot cols={["size"]} id={"alpha-1"} store={store}></TextPlot>
       </div>
     );
   }
