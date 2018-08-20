@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.error{
+  background-color: red
+}
+
+.loading{
+  background-color: yellow
+}
+
 .App-logo {
   animation: App-logo-spin infinite 1s linear;
   height: 80px;

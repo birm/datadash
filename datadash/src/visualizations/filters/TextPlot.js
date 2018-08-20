@@ -5,7 +5,7 @@ class TextPlot extends React.Component{
     super(props)
     let id = props.id
     let cols = props.cols
-    this.state = {id: id, cols:cols, data: false}
+    this.state = {id: id, cols:cols, data: false, errored: false}
     this.store = props.store
   }
 
@@ -14,11 +14,18 @@ class TextPlot extends React.Component{
       this.setState({data:data})
     }, (error)=>{
       console.warn(error)
-      this.setState({data:error.toString()})
+      this.setState({data:error.toString(), errored:true})
     })
   }
 
   render(){
+    if(this.state.errored){
+      return(
+        <div className="textplot graph filter error" id={this.props.id}>
+        {this.state.data}
+        </div>
+      )
+    }
     if(this.state.data){
       return(
         <div className="textplot graph filter" id={this.props.id}>
@@ -27,7 +34,7 @@ class TextPlot extends React.Component{
       )
     } else {
       return(
-        <div className="textplot graph filter" id={this.props.id}>
+        <div className="textplot graph filter loading" id={this.props.id}>
         Loading
         </div>
       )
