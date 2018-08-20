@@ -32,22 +32,17 @@ function filterData(data, rules){
     for (rule in rules){
       let broken = false
       let oprs = Object.keys(rules[rule]);
-      console.log(oprs)
       if (oprs.includes("match")){
-        console.log(y[rule])
         broken = broken || y[rule] != rules[rule]["match"]
       }
       if (oprs.includes("regex")){
-        console.log(y[rule])
         let re = new RegExp(rules[rule]["regex"])
         broken = broken || !re.test(y[rule])
       }
       if (oprs.includes("less")){
-        console.log(y[rule])
         broken = broken || y[rule] >= rules[rule]["less"]
       }
       if (oprs.includes("greater")){
-        console.log(y[rule])
         broken = broken || y[rule] <= rules[rule]["greater"]
       }
       if (broken){
@@ -60,7 +55,7 @@ function filterData(data, rules){
   })
 }
 
-demolist = {fruit:"data.csv"};
+demolist = {fruit:"demo_data.csv"};
 
 const demoData = new csvData(demolist);
 console.log(demoData.getData('fruit'))
@@ -86,12 +81,11 @@ app.get("/v1/matrix", (req, res) =>{
         for (col in cols){
           let t = []
           for (rec in a){
-            console.log(col, rec, a[rec][cols[col]] || req.query.missing)
             t.push(a[rec][cols[col]])
           }
-          d.push(t)
+          outdata.push(t)
         }
-        res.send(d)
+        res.send(outdata)
         })
 
 app.get("/v1/counteach", (req, res) =>{
@@ -99,7 +93,7 @@ app.get("/v1/counteach", (req, res) =>{
         data = filterData(data, req.query.filter)
         let counts = {}
         for (record in data){
-          let val = record[req.query.col]
+          let val = data[record][req.query.col]
           if(val in counts){
             counts[val] +=1
           } else {
@@ -109,17 +103,5 @@ app.get("/v1/counteach", (req, res) =>{
         res.send(counts)
         })
 
-app.get("/v1/stats", (req, res) =>{
-        let data = demoData.getData(req.query.dataset);
-        data = filterData(data, req.query.filter).map(x=>x[req.query.col])
-        let stats = {}
-        stats.max = Math.max(data)
-        stats.min = Math.min(data)
-        stats.count = data.length
-        let s = new Set(data)
-        stats.distinct = s.size
-        res.send(stats)
-        })
 
-
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(3333, () => console.log('CSV DataDash Engine at Port 3333'))

@@ -9,6 +9,7 @@
   "author": "birm",
   "license": "UNLICENSED",
   "dependencies": {
+    "csvtojson": "^2.0.8",
     "express": "^4.16.3"
   }
 }

@@ -4,11 +4,14 @@ import './App.css';
 import Store from './util/ApiStore'
 import TextPlot from './visualizations/filters/TextPlot'
 
-const urlBase="localhost:3000"
+const urlBase="localhost:3333"
 const dataset="test"
 const store = new Store(urlBase, dataset)
 
 class App extends Component {
+  componentDidMount(){
+    document.title = "DataDash"
+  }
   render() {
     return (
       <div className="App">
