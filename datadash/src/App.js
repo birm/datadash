@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Store from './util/ApiStore'
-import TextPlot from './visualizations/filters/TextPlot'
+import VisContainer from './visualizations/VisContainer'
 
 const urlBase="http://localhost:3333"
 const dataset="fruit"
@@ -19,7 +19,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">DataDash</h1>
         </header>
-        <TextPlot cols={["size"]} id={"alpha-1"} store={store}></TextPlot>
+        <VisContainer type="text" cols={["size"]} id={"alpha-1"} store={store}></VisContainer>
       </div>
     );
   }

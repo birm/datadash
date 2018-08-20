@@ -11,21 +11,11 @@ class TextPlot extends React.Component{
   componentDidMount() {
     this.state.store.matrix(this.state.cols).then((data)=>{
       this.setState({data:data})
-      console.warn(this.state.store)
     }, (error)=>{
       console.warn(error)
       this.setState({data:error.toString(), errored:true})
     })
   }
-  // componentDidMount(){
-  //   return fetch('http://localhost:3333/v1/matrix?dataset=fruit&filter={%22rating%22:{%22greater%22:0}}&cols=[%22size%22]', {
-  //       credentials: "same-origin",
-  //       mode: "cors"
-  //   }).then((x) => x.json()).then((data)=>{
-  //     this.setState({data:data})
-  //   })
-  // }
-
 
   render(){
     if(this.state.errored){

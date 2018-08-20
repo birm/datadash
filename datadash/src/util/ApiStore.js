@@ -39,7 +39,6 @@ class Store {
           query.start = start
         }
         let url = this.urlBase + "/v1/tabular?" + objToParamStr(query)
-        return new Promise((res,rej)=>res(url))
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
@@ -54,7 +53,6 @@ class Store {
           query.missing = missing
         }
         let url = this.urlBase + "/v1/matrix?" + objToParamStr(query)
-        //return new Promise((res,rej)=>res(url))
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
