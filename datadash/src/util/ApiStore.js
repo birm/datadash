@@ -1,4 +1,5 @@
-// ger items from the api, based on V1.0
+import objToParamStr from './objToParamStr'
+// get items from the api, based on V1.0
 class Store {
     constructor(urlBase, dataset) {
         this.urlBase = urlBase
@@ -66,3 +67,5 @@ class Store {
         }).then((x) => x.json())
     }
 }
+
+export default Store

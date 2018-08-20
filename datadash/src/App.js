@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Store from './util/ApiStore'
+
+const store = new Store(urlBase, dataset)
+
+import TextPlot from './visualizations/filters/TextPlot'
 
 d3Selection = require('d3-selection');
 
@@ -10,11 +15,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">DataDash</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <TextPlot cols=[] id="alpha-1"></TextPlot>
       </div>
     );
   }

@@ -12,3 +12,5 @@ function objToParamStr(obj) {
     }
     return parts.join("&");
 }
+
+export default objToParamStr
