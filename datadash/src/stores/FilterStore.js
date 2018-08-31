@@ -1,12 +1,12 @@
-var Reflux = require('reflux');
+import Reflux from 'reflux'
 
-var FilterActions = Reflux.createActions(["filterChange"])
+import FilterActions from './FilterActions'
 
-class FilterStore extends Reflux.store{
+class FilterStore extends Reflux.Store{
   constructor(){
     super()
     this.state = {filter:{}}
-    this.listenTo(filterChange, this.onFilterChange);
+    this.listenTo(FilterActions.filterChange, this.onFilterChange);
   }
   onFilterChange(filter){
     this.filter = filter;

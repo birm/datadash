@@ -5,7 +5,8 @@ class TextPlot extends React.Component{
     super(props)
     let id = props.id
     let cols = props.cols
-    this.state = {id: id, cols:cols, data: false, filter:{}, errored: false, db:props.db}
+    let db = props.db
+    this.state = {id: id, cols:cols, data: false, errored: false, db:db}
   }
 
   componentDidMount() {

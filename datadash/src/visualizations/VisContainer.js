@@ -2,6 +2,10 @@ import TextPlot from './filters/TextPlot'
 
 import React from 'react';
 
+import Reflux from 'reflux';
+
+import FilterActions from '../stores/FilterActions'
+
 import FilterStore from '../stores/FilterStore'
 
 const visTypes={
@@ -20,7 +24,7 @@ class VisContainer extends Reflux.Component{
   render(){
       if( visTypes.hasOwnProperty(this.state.type)){
         const VisType = visTypes[this.state.type]
-        return (<VisType cols={this.state.cols} id={this.state.id} db={this.state.db}></VisType>)
+        return (<VisType cols={this.state.cols} id={this.state.id} db={this.state.db} filter={this.state.filter}></VisType>)
       }
       else {
         return(<div id={this.props.id} class="vis vis-missing error"></div>)

@@ -19,7 +19,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">DataDash</h1>
         </header>
-        <VisContainer type="text" cols={["size"]} id={"alpha-1"} store={store}></VisContainer>
+        <VisContainer type="text" cols={["size"]} id={"alpha-1"} db={store}></VisContainer>
       </div>
     );
   }
