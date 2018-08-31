@@ -74,8 +74,6 @@ function filterData(data, rules){
   })
 }
 
-filterData(x,filter)
-
 demolist = {fruit:"demo_data.csv"};
 
 const demoData = new csvData(demolist);

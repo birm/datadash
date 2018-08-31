@@ -12,7 +12,6 @@ class FilterStore extends Reflux.Store{
     // TODO handle more complicated filter set
     this.filter = filter;
     this.setState({"filter":filter})
-    console.log(this.state)
   }
 }
 

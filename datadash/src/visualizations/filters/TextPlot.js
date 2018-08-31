@@ -27,7 +27,6 @@ class TextPlot extends React.Component{
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
-    alert(JSON.stringify(nextProps))
     this.state.db.matrix(this.state.cols, nextProps.filter).then((data)=>{
       this.setState({data:data})
     }, (error)=>{
