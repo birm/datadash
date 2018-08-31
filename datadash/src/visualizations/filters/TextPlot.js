@@ -6,11 +6,29 @@ class TextPlot extends React.Component{
     let id = props.id
     let cols = props.cols
     let db = props.db
-    this.state = {id: id, cols:cols, data: false, errored: false, db:db}
+    this.trigger = props.trigger
+    this.state = {id: id, cols:cols, data: false, errored: false, db:db, filter:props.filter}
+    this.onFilter = this.onFilter.bind(this)
   }
 
   componentDidMount() {
-    this.state.db.matrix(this.state.cols, this.state.filter).then((data)=>{
+    this.state.db.matrix(this.state.cols, {}).then((data)=>{
+      this.setState({initialData:data})
+    }, (error)=>{
+      console.warn(error)
+      this.setState({data:error.toString(), errored:true})
+    })
+  }
+
+  onFilter(event){
+    var filter = {"rating":{"greater":event.target.value}}
+    this.trigger(filter)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
+    alert(JSON.stringify(nextProps))
+    this.state.db.matrix(this.state.cols, nextProps.filter).then((data)=>{
       this.setState({data:data})
     }, (error)=>{
       console.warn(error)
@@ -26,10 +44,12 @@ class TextPlot extends React.Component{
         </div>
       )
     }
-    if(this.state.data){
+    if(this.state.initialData){
       return(
         <div className="textplot graph filter" id={this.props.id}>
-        {this.state.data}
+        <label>Rating at least:</label><input onChange={this.onFilter}></input><br/>
+        Filtered: {this.state.data}<br/>
+        Initial: {this.state.initialData}<br/>
         </div>
       )
     } else {

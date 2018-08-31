@@ -9,8 +9,10 @@ class FilterStore extends Reflux.Store{
     this.listenTo(FilterActions.filterChange, this.onFilterChange);
   }
   onFilterChange(filter){
+    // TODO handle more complicated filter set
     this.filter = filter;
-    this.setState(filter:filter)
+    this.setState({"filter":filter})
+    console.log(this.state)
   }
 }
 

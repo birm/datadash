@@ -38,13 +38,13 @@ class Store {
             mode: "cors"
         }).then((x) => x.json())
     }
-    matrix(cols, missing, filter) {
+    matrix(cols, filter, missing) {
         let query = {}
         query.dataset = this.dataset
         query.filter = JSON.stringify(filter) || JSON.stringify({})
         query.cols = JSON.stringify(cols)
         if (missing){
-          query.missing = missing
+          query.missing = JSON.stringify(missing)
         }
         let url = this.urlBase + "/v1/matrix?" + objToParamStr(query)
         return fetch(url, {
