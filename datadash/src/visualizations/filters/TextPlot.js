@@ -5,11 +5,11 @@ class TextPlot extends React.Component{
     super(props)
     let id = props.id
     let cols = props.cols
-    this.state = {id: id, cols:cols, data: false, filter:{}, errored: false, store:props.store}
+    this.state = {id: id, cols:cols, data: false, filter:{}, errored: false, db:props.db}
   }
 
   componentDidMount() {
-    this.state.store.matrix(this.state.cols).then((data)=>{
+    this.state.db.matrix(this.state.cols).then((data)=>{
       this.setState({data:data})
     }, (error)=>{
       console.warn(error)
