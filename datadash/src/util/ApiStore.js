@@ -4,12 +4,6 @@ class Store {
     constructor(urlBase, dataset) {
         this.urlBase = urlBase
         this.dataset = dataset
-        this.filterState = {}
-    }
-    setFilter(col, rule, val) {
-        // if the rule exists, take the appropriate action
-        // if the rule does not exist, add it
-        return this.filterState
     }
     datasets() {
         let url = this.urlBase + "/v1/datasets"
@@ -18,20 +12,20 @@ class Store {
             mode: "cors"
         }).then((x) => x.json())
     }
-    summary() {
+    summary(filter) {
         let query = {}
         query.dataset = this.dataset
-        query.filter = this.filterState
+        query.filter = JSON.stringify(filter) || JSON.stringify({})
         let url = this.urlBase + "/v1/summary?" + objToParamStr(query)
         return fetch(url, {
             credentials: "same-origin",
             mode: "cors"
         }).then((x) => x.json())
     }
-    tabular(start, len) {
+    tabular(start, len, filter) {
         let query = {}
         query.dataset = this.dataset
-        query.filter = this.filterState
+        query.filter = JSON.stringify(filter) || JSON.stringify({})
         if(len){
           query.len = len
         }
@@ -44,10 +38,10 @@ class Store {
             mode: "cors"
         }).then((x) => x.json())
     }
-    matrix(cols, missing) {
+    matrix(cols, missing, filter) {
         let query = {}
         query.dataset = this.dataset
-        query.filter = JSON.stringify(this.filterState)
+        query.filter = JSON.stringify(filter) || JSON.stringify({})
         query.cols = JSON.stringify(cols)
         if (missing){
           query.missing = missing
@@ -58,10 +52,10 @@ class Store {
             mode: "cors"
         }).then((x) => x.json())
     }
-    countEach(col) {
+    countEach(col, filter) {
         let query = {}
         query.dataset = this.dataset
-        query.filter = this.filterState
+        query.filter = JSON.stringify(filter) || JSON.stringify({})
         query.col = col
         let url = this.urlBase + "/v1/counteach?" + objToParamStr(query)
         return fetch(url, {

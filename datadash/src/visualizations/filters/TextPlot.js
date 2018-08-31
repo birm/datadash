@@ -10,7 +10,7 @@ class TextPlot extends React.Component{
   }
 
   componentDidMount() {
-    this.state.db.matrix(this.state.cols).then((data)=>{
+    this.state.db.matrix(this.state.cols, this.state.filter).then((data)=>{
       this.setState({data:data})
     }, (error)=>{
       console.warn(error)
