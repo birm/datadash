@@ -37,23 +37,35 @@ class csvData{
 function filterData(data, rules){
   return data.filter(y=>{
     for (rule in rules){
-      let broken = false
       let oprs = Object.keys(rules[rule]);
       if (oprs.includes("match")){
-        broken = broken || y[rule] != rules[rule]["match"]
+        if(y[rule] != rules[rule]["match"]){
+          return false
+        }
       }
       if (oprs.includes("regex")){
         let re = new RegExp(rules[rule]["regex"])
-        broken = broken || !re.test(y[rule])
+        if (!re.test(y[rule])){
+          return false
+        }
       }
       if (oprs.includes("less")){
-        broken = broken || y[rule] >= rules[rule]["less"]
+        let z = rules[rule]["less"]
+        if (!isNaN(z)){
+          z = parseFloat(z)
+        }
+        if (y[rule] >= z){
+          return false
+        }
       }
       if (oprs.includes("greater")){
-        broken = broken || y[rule] <= rules[rule]["greater"]
-      }
-      if (broken){
-        return false
+        let z = rules[rule]["greater"]
+        if (!isNaN(z)){
+          z = parseFloat(z)
+        }
+        if (y[rule] <= z){
+          return false
+        }
       }
 
     }
@@ -61,6 +73,8 @@ function filterData(data, rules){
     return true
   })
 }
+
+filterData(x,filter)
 
 demolist = {fruit:"demo_data.csv"};
 
